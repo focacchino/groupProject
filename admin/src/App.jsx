@@ -1,9 +1,10 @@
 import React from "react";
+import Admin from "./pages/admin/admin";
 
-const Admin = () => {
+const App = () => {
   return (
     <div>
-      <h1>Admin</h1>
+      <Admin />
     </div>
   );
 }

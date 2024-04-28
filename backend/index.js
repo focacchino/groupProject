@@ -213,6 +213,14 @@ app.post('/login', async (req,res) => {
     
 })
 
+app.get('/newcollection', async (req, res) => {
+    let products = await Product.find({});
+    let newcollection = products.slice(1).slice(-8);
+    console.log("New collection");
+    res.json(newcollection);
+})
+
+
 app.listen(port, (error) => {
     if (!error) {
         console.log(`Server is running on port ${port}`);

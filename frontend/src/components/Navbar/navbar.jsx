@@ -18,7 +18,7 @@ import cart_icon from '../Assets/cart_icon.png'
         </div>
         <ul className="nav-menu">
           <li onClick={()=>{setMenu("shop")}}>Shop{menu==="shop"?<hr/>:<></>}</li>
-          <li onClick={()=>{setMenu("mens")}}>Mens{menu==="mens"?<hr/>:<></>}</li>
+          <li onClick={()=>{setMenu("mens")}}>Men{menu==="mens"?<hr/>:<></>}</li>
           <li onClick={()=>{setMenu("womens")}}>Women{menu==="womens"?<hr/>:<></>}</li>
           <li onClick={()=>{setMenu("kids")}}>Kids{menu==="kids"?<hr/>:<></>}</li>
         </ul>
@@ -30,4 +30,4 @@ import cart_icon from '../Assets/cart_icon.png'
     </div>
   )
  }
-  export default Navbar
+  export default Navbar;

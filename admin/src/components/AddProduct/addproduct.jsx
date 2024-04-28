@@ -25,6 +25,16 @@ const AddProduct = () => {
         </div>
         <div className="addproduct-itemfield">
             <p>Product Category</p>
+            <select name='category' className='addproduct-selector'>
+                <option value='women'>Women</option>
+                <option value='men'>Men</option>
+                <option value='kids'>Kids</option>
+                <label htmlFor='file-input'>
+                    <img src={} className='addproduct-thumbnail-img'/>
+                </label>
+                <input type='file' id='file-input' name='image' hidden />
+            </select>
         </div>
+        <button className='addproduct-btn'>ADD</button>
     </div>
 }

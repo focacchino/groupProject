@@ -222,7 +222,7 @@ app.get('/newcollection', async (req, res) => {
 
 app.get('/popularinwomen', async (req, res) => {
     let products = await Product.find({category: 'women'});
-    let popularinwomen = products.slice(1).slice(-8);
+    let popularinwomen = products.slice(0,4);
     console.log("Popular in women fetched");
     res.json(popularinwomen);
 })
@@ -265,7 +265,11 @@ app.post('/removefromcart', fetchUser, async (req, res) => {
     res.send("Removed");
 })
 
-app.
+app.post('/getcart', fetchUser, async (req, res) =>{
+    console.log("Get cart");
+    let userData = Users.findOne({_id:req.user.id});
+    res.json(userData.cartData);
+})
 
 app.listen(port, (error) => {
     if (!error) {

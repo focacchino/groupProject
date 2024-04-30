@@ -220,6 +220,17 @@ app.get('/newcollection', async (req, res) => {
     res.json(newcollection);
 })
 
+app.get('/popularinwomen', async (req, res) => {
+    let products = await Product.find({category: 'women'});
+    let popularinwomen = products.slice(1).slice(-8);
+    console.log("Popular in women fetched");
+    res.json(popularinwomen);
+})
+
+app.post('/addtocart', async (req, res) => {
+    
+})
+
 
 app.listen(port, (error) => {
     if (!error) {

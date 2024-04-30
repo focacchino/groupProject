@@ -1,19 +1,29 @@
-import React, { useState, createContext, useEffect } from 'react';
-import all_product from "../components/Assets/all_product";
+import React, { useState, createContext, useEffect,Component } from 'react';
+import all_product from '../components/Assets/all_product'
    
 
 
 
 export const ShopContext = createContext(null);
 
+const getDefaultCart = () =>{
+    let cart ={};
+    for (let index = 0; index < all_product.length+1; index++) {
+        cart[index] = 0;
+        }
+        return cart;
+}
 const ShopContextProvider = (props)=>{
 
     
 
     const [all_product,setAll_product] = useState([]);
-    const [cartItems,setCartItems] = useState(useDefaultCart());
+    const [cartItems,setCartItems] = useState(getDefaultCart());
 
-    const contextValue = {all_product};
+    const contextValue = {all_product,cartItems};
+    
+
+    
 
     useEffect(() => {
         fetch('https://localhost:4000/allproducts')
@@ -53,6 +63,7 @@ const ShopContextProvider = (props)=>{
                 })
             }).then((res) => res.json()).then((data) => {
                 console.log(data);
+                console.log(cartItems);
             })
         }
     }
@@ -75,6 +86,30 @@ const ShopContextProvider = (props)=>{
             })
         }
     }
+    const getTotalCartAmount =( ) =>{
+        let totalAmount = 0;
+        for(const item in cartItems)
+        {
+            if (cartItems[item]>0)
+            {
+                let itemInfo = all_product.find((product)=>product.id===Number(item))
+                totalAmount += itemInfo.new_price * cartItems[item];
+            }
+        }
+        return totalAmount;
+    }
+    const getTotalCartItems = () =>{
+        let totalItem = 0;
+        for(const item in cartItems)
+        {
+            if(cartItems[item]>0)
+            {
+                totalItem += cartItems[item];
+            }
+        }
+        return totalItem;
+    }
+    const contextValue ={getTotalCartItems,getTotalCartAmount,all_product,cartItems,addToCart,removeFromCart};
 return(
     <ShopContext.Provider value={contextValue}>
         {props.children}

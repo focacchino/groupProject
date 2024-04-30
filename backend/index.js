@@ -227,10 +227,45 @@ app.get('/popularinwomen', async (req, res) => {
     res.json(popularinwomen);
 })
 
+const fetchUser = async (req, res, next) => {
+    const token = req.header('auth-token');
+    if (!token) {
+        return res.status(401).json({
+            success: false,
+            errors: 'No token, authorization denied',
+        })
+    }
+    try {
+        const verified = jwt.verify(token,'secret_ecom');
+        req.user = verified.user;
+        next();
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            errors: 'Token is not valid',
+        })
+    }
+
+}
+
 app.post('/addtocart', async (req, res) => {
-    
+    console.log("added", req.body.itemId);
+    let userData = Users.findOne({_id:req.user.id});
+    userData.cartData[req.body.itemId] += 1;
+    await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
+    res.send("Added");
 })
 
+app.post('/removefromcart', fetchUser, async (req, res) => {
+    console.log("removed", req.body.itemId);
+    let userData = Users.findOne({_id:req.user.id});
+    if (userData.cartData[req.body.itemId] > 0)
+    userData.cartData[req.body.itemId] -= 1;
+    await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
+    res.send("Removed");
+})
+
+app.
 
 app.listen(port, (error) => {
     if (!error) {

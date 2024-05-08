@@ -1,0 +1,53 @@
+.Hero{
+    height: 100vh;
+    background: linear-gradient(180deg, #161e8b, hsla(197, 35%, 39%, 0.133));
+    display: flex;
+}
+.hero-left{
+    color:aliceblue;
+    font-size: 26px;
+    font-weight: 600;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    padding-left: 180px;
+    line-height: 1.1;
+}
+.hero-left h2{
+    font-size: 35px;
+    font-weight: 600;
+    font-family:'Times New Roman', Times, serif;
+}
+.hero-left p{
+    color:bisque;
+    font-size: 26px;
+    font-weight: 600;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 50px;
+}
+.hero-latest-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 30px;
+    height: 10px;
+    border-radius: 75px;
+    margin-top: 30px;
+    color: black;
+    font-size: 22px;
+    font-weight: 500;
+    font-family: 'Times New Roman', Times, serif;
+}
+.hero-right{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    border-radius:10px 50px;
+
+
+}

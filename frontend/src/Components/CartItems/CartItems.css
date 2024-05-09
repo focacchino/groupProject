@@ -6,7 +6,7 @@
     background-color: aliceblue;
     border: 0;
 }
-.carticon-format-main{
+.cartitem-format-main{
     display: grid;
     grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
     align-items: center;
@@ -16,11 +16,11 @@
     font-size: 18px;
     font-weight: 600;
 }
-.carticon-format{
+.cartitem-format{
     font-size: 17px;
     font-weight: 500;
 }
-.carticon-product-icon{
+.cartitem-product-icon{
     height: 62px;
 }
 .cartitems-remove-icon{

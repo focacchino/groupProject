@@ -1,8 +1,8 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import './App.css';
-import AddProduct from './Components/AdminPanel/AddProduct/AddProduct';
-import ListProduct from './Components/AdminPanel/ListProduct/ListProduct';
-import Sidebar from './Components/AdminPanel/Sidebar/Sidebar';
+import AddProduct from './AddProduct/AddProduct';
+import ListProduct from './ListProduct/ListProduct';
+import Sidebar from './Sidebar/Sidebar';
 import React from 'react';
 
 function App() {

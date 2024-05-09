@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import './Sidebar.css';
+import './Sidebar.css'; // Import the CSS file for Sidebar component
 import add_product_icon from '../../Assets/product_cart_icon.png';
 import list_product_icon from '../../Assets/product_list_icon.png';
 
-
+// Correct function declaration syntax
 const Sidebar = () => {
     return (
         

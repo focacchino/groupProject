@@ -41,6 +41,9 @@
     font-weight: 500;
     cursor: pointer;
 }
+.loginsignup-container button:active{
+    background: #e96b7c;
+}
 .loginsignup-login{
     margin-top: 20px;
     color: #5c5c5c;
@@ -50,6 +53,7 @@
 .loginsignup-login span{
     color: #ff4141;
     font-weight: 600;
+    cursor: pointer;
 }
 .loginsignup-agree{
     display: flex;

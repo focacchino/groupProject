@@ -6,21 +6,23 @@
     background-color: aliceblue;
     border: 0;
 }
-.cartitem-format-main{
+.cartitems-format-main{
     display: grid;
     grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
     align-items: center;
     gap: 75px;
     padding: 20px 0px;
-    color: blueviolet;
-    font-size: 18px;
+    color: rgb(7, 8, 65);
+    font-size: 25px;
     font-weight: 600;
+    font-family: 'Times New Roman', Times, serif;
 }
-.cartitem-format{
+.cartitems-format{
     font-size: 17px;
     font-weight: 500;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
-.cartitem-product-icon{
+.carticon-product-icon{
     height: 62px;
 }
 .cartitems-remove-icon{
@@ -44,6 +46,7 @@
     flex-direction: column;
     margin-right: 200px;
     gap: 40px;
+    font-family: 'Times New Roman', Times, serif;
 }
 .cartitems-total-item{
     display: flex;
@@ -57,7 +60,11 @@
     border: none;
     background-color: deeppink;
     color: aliceblue;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     cursor: pointer;
+    font-family: 'Times New Roman', Times, serif;
+}
+.cartitems-total button:active{
+    background: rgb(226, 87, 231);
 }

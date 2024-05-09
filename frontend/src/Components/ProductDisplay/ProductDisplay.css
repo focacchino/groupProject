@@ -11,9 +11,6 @@
     flex-direction: column;
     gap: 16px;
 }
-.productdisplay-img-list img{
-    height: 163px;
-}
 .productdisplay-main-img{
     width: 586px;
     height: 700px;
@@ -79,6 +76,9 @@
     border: none;
     outline: none;
     cursor: pointer;
+}
+.productdisplay-right button:active{
+    background:#efa2a2
 }
 .productdsiplay-right-category{
     margin-top: 10px;

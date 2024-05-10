@@ -10,7 +10,17 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect('mongodb+srv://keithedolphin:ReayYb2uIFQ7dDam@cluster0.pkquihv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+mongoose.connect('mongodb+srv://keithedolphin:testpassword@cluster0.pkquihv.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0',{ useNewUrlParser: true, useUnifiedTopology: true });
+
+
+mongoose.connection.on('connected', () => {
+    console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error', (err) => {
+    console.error('Failed to connect to MongoDB:', err);
+});
+
 
 app.get('/', (req, res) => {
     res.send('Hello World');
@@ -149,6 +159,7 @@ const Users = mongoose.model('Users', {
 
 app.post('/signup', async (req, res) => {
     try {
+        console.log(req.body);
         let existingUser = await Users.findOne({ email: req.body.email });
         if (existingUser) {
             return res.status(400).json({
@@ -168,6 +179,8 @@ app.post('/signup', async (req, res) => {
             password: req.body.password,
             cartData: cart,
         });
+
+        console.log(user);
 
         await user.save();
 
@@ -193,6 +206,7 @@ app.post('/signup', async (req, res) => {
 });
 
 app.post('/login', async (req,res) => {
+    console.log(req.body);
     let user = await Users.findOne({
         email: req.body.email,
     })
@@ -259,9 +273,9 @@ const fetchUser = async (req, res, next) => {
 
 }
 
-app.post('/addtocart', async (req, res) => {
+app.post('/addtocart', fetchUser, async (req, res) => {
     console.log("added", req.body.itemId);
-    let userData = Users.findOne({_id:req.user.id});
+    let userData = await Users.findOne({_id:req.user.id});
     userData.cartData[req.body.itemId] += 1;
     await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
     res.send("Added");
@@ -269,7 +283,7 @@ app.post('/addtocart', async (req, res) => {
 
 app.post('/removefromcart', fetchUser, async (req, res) => {
     console.log("removed", req.body.itemId);
-    let userData = Users.findOne({_id:req.user.id});
+    let userData =await Users.findOne({_id:req.user.id});
     if (userData.cartData[req.body.itemId] > 0)
     userData.cartData[req.body.itemId] -= 1;
     await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
@@ -278,7 +292,7 @@ app.post('/removefromcart', fetchUser, async (req, res) => {
 
 app.post('/getcart', fetchUser, async (req, res) =>{
     console.log("Get cart");
-    let userData = Users.findOne({_id:req.user.id});
+    let userData = await Users.findOne({_id:req.user.id});
     res.json(userData.cartData);
 })
 
@@ -287,7 +301,7 @@ app.post('/getcart', fetchUser, async (req, res) =>{
 
 app.post('/checkout', fetchUser, async (req, res) => {
     console.log("Checkout");
-    let userData = Users.findOne({_id:req.user.id});
+    let userData = await Users.findOne({_id:req.user.id});
     userData.cartData = {};
     await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
     res.send("Checked out");

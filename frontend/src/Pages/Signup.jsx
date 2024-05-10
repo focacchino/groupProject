@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import './CSS/LoginSignup.css'
+import axios from 'axios';
 
-const LoginSignup = () => {
+const Signup = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -11,14 +12,30 @@ const LoginSignup = () => {
     const handleInputChange = (event) => {
         const { name, value, type, checked } = event.target;
         setFormData(prevData => ({
-            ...prevData,
-            [name]: type === "checkbox" ? checked : value
+           ...prevData,
+            [name]: type === "checkbox"? checked : value
         }));
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(formData);
+        try {
+            // Basic validation (you can add more complex validation as needed)
+            if (!formData.email ||!formData.password) {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            const response = await axios.post('http://localhost:4000/signup', formData);
+            console.log('Data sent successfully:', response.data);
+            // Redirect or show success message
+            alert('Sign-up successful. Please log in.');
+            // Redirect to login page or another part of your application
+        } catch (error) {
+            console.error('Failed to send data:', error);
+            // Display a generic error message or a specific one based on the error
+            alert('Failed to sign up. Please try again.');
+        }
     };
 
     return (
@@ -49,10 +66,10 @@ const LoginSignup = () => {
                     />
                 </div>
                 <button type="submit">Continue</button>
-                <p className="loginsignup-login">Already have an account? <span>Login here</span></p>
+                <p className="loginsignup-login">Already have an account? <a href="/login">Login here</a></p>
             </form>
         </div>
     );
 };
 
-export default LoginSignup
+export default Signup;

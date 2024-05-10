@@ -12,6 +12,7 @@ import men_banner from './Components/Assets/banner_mens.png'
 import women_banner from './Components/Assets/banner_women.png'
 import kid_banner from './Components/Assets/banner_kids.png'
 import Admin from './Pages/Admin.jsx'
+import Signup from './Pages/Signup';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
          </Route>
          <Route path='/cart' element={<Cart/>}/>
          <Route path='/login' element={<LoginSignup/>}/>
+         <Route path='/signup' element={<Signup/>}/>
          <Route path="/admin/*" element={<Admin />} />
       </Routes>
       <Footer/>

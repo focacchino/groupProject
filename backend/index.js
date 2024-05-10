@@ -10,7 +10,7 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect('mongodb+srv://keithedolphin:ReayYb2uIFQ7dDam@cluster0.pkquihv.mongodb.net/ecommerce');
+mongoose.connect('mongodb+srv://keithedolphin:ReayYb2uIFQ7dDam@cluster0.pkquihv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 app.get('/', (req, res) => {
     res.send('Hello World');
@@ -148,38 +148,49 @@ const Users = mongoose.model('Users', {
 })
 
 app.post('/signup', async (req, res) => {
-    let check = Users.findOne({ email: req.body.email})
-    if (check) {
-        res.status(400).json({
-            success: false,
-            errors: 'Email already exists',
-        })
-    }
-    let cart = {};
-    for (let i = 0; i < 300; i++) {
-        cart[i] = 0;
-    }
-    const user = new Users({
-        name: req.body.name,
-        email: req.body.email,
-        password:req.body.password,
-        cartData: cart,
-    })
-
-    await user.save();
-
-    const data = {
-        user: {
-            id: user.id,
+    try {
+        let existingUser = await Users.findOne({ email: req.body.email });
+        if (existingUser) {
+            return res.status(400).json({
+                success: false,
+                errors: 'Email already exists',
+            });
         }
-    }
 
-    const token = jwt.sign(data, 'secret_ecom');
-    res.json({
-        success: true,
-        token,
-    })
-})
+        let cart = {};
+        for (let i = 0; i < 300; i++) {
+            cart[i] = 0;
+        }
+
+        const user = new Users({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            cartData: cart,
+        });
+
+        await user.save();
+
+        const data = {
+            user: {
+                id: user.id,
+            }
+        };
+
+        const token = jwt.sign(data, 'secret_ecom');
+        res.json({
+            success: true,
+            token,
+        });
+    } catch (error) {
+        console.error('Error during signup:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error during signup',
+            error: error.message,
+        });
+    }
+});
 
 app.post('/login', async (req,res) => {
     let user = await Users.findOne({
@@ -271,10 +282,21 @@ app.post('/getcart', fetchUser, async (req, res) =>{
     res.json(userData.cartData);
 })
 
+
+
+
+app.post('/checkout', fetchUser, async (req, res) => {
+    console.log("Checkout");
+    let userData = Users.findOne({_id:req.user.id});
+    userData.cartData = {};
+    await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
+    res.send("Checked out");
+})
+
 app.listen(port, (error) => {
     if (!error) {
         console.log(`Server is running on port ${port}`);
     } else {
         console.log("Error",error);
     }
-});
+})

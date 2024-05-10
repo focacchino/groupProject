@@ -1,25 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import './CSS/LoginSignup.css'
-const LoginSignup =()=>{
-    return(
-        <div className="loginsignup">
-            <div className="loginsignup-container">
-                <h1>Sign up</h1>
-                <div className="loginsignup-fields">
-                    <input type="text" placeholder="Your Name" />
-                    <input type="email" placeholder="Email Address" />
-                    <input type="password" placeholder="password" />
-                </div>
-                <button>Continue</button>
-                <p className="loginsignup-login">Already have an account? <span>Login here</span></p>
-                <div className="loginsignup-agree">
-                    <input type="checkbox" name='' id='' />
-                    <p>By continuing, i agree to the terms of use & privacy policy.</p>
-                </div>
-            </div>
 
+const LoginSignup = () => {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: '',
+    });
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log('Login details:', formData);
+    };
+
+    return (
+        <div className="loginsignup">
+            <form className="loginsignup-container" onSubmit={handleSubmit}>
+                <h1>Login</h1>
+                <div className="loginsignup-fields">
+                    <input
+                        type="email"
+                        placeholder="Email Address"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={formData.password}
+                        onChange={handleInputChange}
+                    />
+                </div>
+                <button type="submit">Login</button>
+                <p className="loginsignup-login">Don't have an account? <span>Sign up here</span></p>
+            </form>
         </div>
-    )
-}
+    );
+};
 
 export default LoginSignup

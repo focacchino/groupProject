@@ -5,6 +5,7 @@ import instagram_icon from '../Assets/instagram_icon.png'
 import pinterest_icon from '../Assets/pinterest_icon.png'
 import whatsapp_icon from '../Assets/whatsapp_icon.png'
 
+
 const Footer = () => {
   return (
 

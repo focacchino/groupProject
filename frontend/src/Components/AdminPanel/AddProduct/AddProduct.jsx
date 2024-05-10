@@ -40,7 +40,7 @@ const Add_Product = async ()=>{
     {
          product.image = responseData.image_url; 
          console.log(product);
-         await fetch('https://localhost:4000/addproduct',{
+         await fetch('https://localhost:4000/admin/addproduct',{
             method:'POST',
             headers:{
                 Accept:'application/json',

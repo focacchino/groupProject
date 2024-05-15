@@ -10,7 +10,7 @@ const cors = require('cors');
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect('mongodb+srv://keithedolphin:testpassword@cluster0.pkquihv.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0',{ useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://keithedolphin:0OgHZl4B8N15tdad@cluster0.pkquihv.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0',{ useNewUrlParser: true, useUnifiedTopology: true });
 
 
 mongoose.connection.on('connected', () => {
